@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Optimly — Know the Gap. Close It Faster.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --coral:#FF4B2B;--coral-l:#FF6B52;--coral-dim:rgba(255,75,43,0.12);
+  --yellow:#FFD23F;--yellow-dim:rgba(255,210,63,0.15);
+  --cyan:#00D9C8;--cyan-dim:rgba(0,217,200,0.12);
+  --navy:#0A1628;--navy2:#0F2040;--navy3:#162B4E;
+  --blue:#2563EB;--green:#10B981;
+  --light:#F5F7FF;--white:#fff;
+  --gray:#64748B;--gray-l:#94A3B8;
+  --fd:'Syne',sans-serif;--fb:'DM Sans',sans-serif;--fm:'JetBrains Mono',monospace;
+  --r:16px;--rl:24px;--rs:8px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);font-size:16px;line-height:1.6;color:var(--navy);background:var(--light);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+
+.container{max-width:1200px;margin:0 auto;padding:0 28px}
+
+.tag{display:inline-flex;align-items:center;gap:8px;background:var(--coral-dim);color:var(--coral);font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:6px 16px;border-radius:100px;font-family:var(--fd)}
+.tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--coral);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:100px;font-family:var(--fd);font-size:15px;font-weight:700;cursor:pointer;transition:all .25s ease;border:none;outline:none;white-space:nowrap}
+.btn-primary{background:var(--coral);color:var(--white);box-shadow:0 4px 16px rgba(255,75,43,.3)}
+.btn-primary:hover{background:var(--coral-l);transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,75,43,.4)}
+.btn-outline{background:transparent;color:var(--white);border:1.5px solid rgba(255,255,255,.25)}
+.btn-outline:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.5)}
+.btn-outline-dark{background:transparent;color:var(--navy);border:1.5px solid rgba(10,22,40,.2)}
+.btn-outline-dark:hover{background:var(--navy);color:var(--white)}
+
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-l{opacity:0;transform:translateX(-36px);transition:opacity .7s ease,transform .7s ease}
+.reveal-l.visible{opacity:1;transform:translateX(0)}
+.reveal-r{opacity:0;transform:translateX(36px);transition:opacity .7s ease,transform .7s ease}
+.reveal-r.visible{opacity:1;transform:translateX(0)}
+.d1{transition-delay:.1s!important}.d2{transition-delay:.2s!important}.d3{transition-delay:.3s!important}.d4{transition-delay:.4s!important}.d5{transition-delay:.5s!important}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:22px 0;transition:all .3s ease}
+nav.scrolled{background:rgba(10,22,40,.94);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);padding:14px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.logo{font-family:var(--fd);font-size:24px;font-weight:800;color:var(--white);letter-spacing:-.5px;display:flex;align-items:center;gap:10px}
+.logo-mark{width:36px;height:36px;background:var(--coral);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-mark svg{width:20px;height:20px}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none}
+.nav-links a{color:rgba(255,255,255,.65);font-size:14px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{display:flex;align-items:center;gap:12px}
+.nav-cta .btn{padding:10px 22px;font-size:14px}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;background:var(--navy);display:flex;align-items:center;overflow:hidden;padding:120px 0 80px}
+#hc{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none}
+.hero-glow{position:absolute;pointer-events:none;border-radius:50%}
+.hg1{width:700px;height:700px;top:-150px;left:-100px;background:radial-gradient(circle,rgba(255,75,43,.13) 0%,transparent 65%)}
+.hg2{width:600px;height:600px;bottom:-100px;right:0;background:radial-gradient(circle,rgba(0,217,200,.1) 0%,transparent 65%)}
+.hg3{width:400px;height:400px;top:30%;left:45%;background:radial-gradient(circle,rgba(255,210,63,.07) 0%,transparent 65%)}
+.hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr 480px;gap:64px;align-items:center}
+.hero-content{}
+.hero-tag{margin-bottom:28px}
+.hero h1{font-family:var(--fd);font-size:clamp(50px,6.5vw,84px);font-weight:800;line-height:1.03;letter-spacing:-2.5px;color:var(--white);margin-bottom:26px}
+.hero h1 .c{color:var(--coral)}
+.hero h1 .y{color:var(--yellow)}
+.hero-sub{font-size:18px;line-height:1.75;color:rgba(255,255,255,.6);max-width:520px;margin-bottom:40px;font-weight:400}
+.hero-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:56px}
+.hero-trust{display:flex;align-items:center;gap:14px}
+.hero-avatars{display:flex}
+.h-av{width:34px;height:34px;border-radius:50%;border:2.5px solid var(--navy2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:rgba(255,255,255,.75);margin-left:-10px;font-family:var(--fd);flex-shrink:0}
+.h-av:first-child{margin-left:0}
+.h-av:nth-child(1){background:linear-gradient(135deg,#3B82F6,#2563EB)}
+.h-av:nth-child(2){background:linear-gradient(135deg,var(--coral),#FF6B52)}
+.h-av:nth-child(3){background:linear-gradient(135deg,var(--cyan),#00897B)}
+.h-av:nth-child(4){background:linear-gradient(135deg,#7C3AED,#5B21B6)}
+.hero-trust-text{font-size:13px;color:rgba(255,255,255,.4);font-weight:500;line-height:1.5}
+.hero-trust-text strong{display:block;color:rgba(255,255,255,.65);font-size:14px}
+
+/* HERO RIGHT: LIVE DASHBOARD CARD */
+.hero-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:var(--rl);padding:24px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.hc-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.hc-title{font-family:var(--fd);font-size:14px;font-weight:700;color:rgba(255,255,255,.8)}
+.hc-live{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--green);font-family:var(--fm);font-weight:500}
+.hc-live::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+.gap-row{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.gap-skill{font-size:12px;color:rgba(255,255,255,.5);width:110px;flex-shrink:0;font-family:var(--fm)}
+.gap-bar-track{flex:1;height:8px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden;position:relative}
+.gap-bar-have{height:100%;border-radius:4px;position:absolute;left:0;top:0;transition:width 1.5s cubic-bezier(.34,1.56,.64,1)}
+.gap-bar-need{height:100%;border-radius:4px;position:absolute;left:0;top:0;opacity:.25}
+.gap-score{font-size:11px;color:rgba(255,255,255,.35);width:32px;text-align:right;font-family:var(--fm)}
+.hc-divider{height:1px;background:rgba(255,255,255,.06);margin:16px 0}
+.hc-insight{display:flex;align-items:flex-start;gap:10px;padding:14px;background:rgba(255,75,43,.12);border-radius:var(--rs);border:1px solid rgba(255,75,43,.2)}
+.hc-insight-icon{width:28px;height:28px;border-radius:7px;background:var(--coral);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
+.hc-insight-text{font-size:12px;color:rgba(255,255,255,.65);line-height:1.6}
+.hc-insight-text strong{color:var(--coral);display:block;font-size:13px;font-family:var(--fd);margin-bottom:2px}
+.hc-actions{display:flex;gap:8px;margin-top:16px}
+.hc-btn{flex:1;padding:9px;border-radius:10px;font-family:var(--fd);font-size:12px;font-weight:700;cursor:pointer;border:none;transition:all .2s}
+.hc-btn-primary{background:var(--coral);color:var(--white)}
+.hc-btn-primary:hover{background:var(--coral-l)}
+.hc-btn-secondary{background:rgba(255,255,255,.06);color:rgba(255,255,255,.6)}
+.hc-btn-secondary:hover{background:rgba(255,255,255,.1)}
+.hc-employee{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.hc-emp-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#7C3AED,var(--blue));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--white);font-family:var(--fd)}
+.hc-emp-info strong{font-size:13px;color:rgba(255,255,255,.8);font-family:var(--fd)}
+.hc-emp-info span{font-size:11px;color:rgba(255,255,255,.35)}
+
+/* TRUST BAR */
+.trust-bar{background:var(--white);padding:22px 0;border-bottom:1px solid rgba(10,22,40,.06)}
+.trust-inner{display:flex;align-items:center;gap:40px;justify-content:center;flex-wrap:wrap}
+.trust-label{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--gray-l)}
+.trust-logos{display:flex;align-items:center;gap:36px;flex-wrap:wrap;justify-content:center}
+.tl{font-family:var(--fd);font-size:16px;font-weight:800;color:var(--gray-l);opacity:.55;letter-spacing:-.3px;transition:opacity .2s}
+.tl:hover{opacity:.9}
+
+/* SECTION COMMONS */
+.sh{text-align:center;margin-bottom:64px}
+.sh .tag{margin-bottom:20px}
+.sh h2{font-family:var(--fd);font-size:clamp(36px,4.5vw,54px);font-weight:800;line-height:1.1;letter-spacing:-1.5px;color:var(--navy)}
+.sh h2 .c{color:var(--coral)}
+.sh p{font-size:17px;color:var(--gray);max-width:520px;margin:16px auto 0;line-height:1.75}
+
+/* PROBLEM */
+.problem{padding:100px 0;background:var(--white)}
+.prob-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:48px}
+.s-card{background:var(--light);border-radius:var(--rl);padding:40px 28px;text-align:center;border:1px solid rgba(10,22,40,.06);transition:transform .3s ease,box-shadow .3s ease}
+.s-card:hover{transform:translateY(-5px);box-shadow:0 16px 48px rgba(10,22,40,.09)}
+.s-num{font-family:var(--fd);font-size:clamp(48px,6vw,72px);font-weight:800;line-height:1;letter-spacing:-2px;margin-bottom:12px}
+.c1 .s-num{color:var(--coral)}.c2 .s-num{color:#D4960F}.c3 .s-num{color:var(--blue)}
+.s-label{font-size:15px;color:var(--gray);line-height:1.5;font-weight:500}
+.prob-quote{background:var(--navy);border-radius:var(--rl);padding:52px;text-align:center;position:relative;overflow:hidden}
+.prob-quote::before{content:'\201C';position:absolute;top:-30px;left:32px;font-size:220px;font-family:var(--fd);font-weight:800;color:rgba(255,75,43,.08);line-height:1;pointer-events:none}
+.prob-quote blockquote{font-size:21px;color:rgba(255,255,255,.82);font-weight:400;line-height:1.65;max-width:680px;margin:0 auto 20px;position:relative;z-index:1}
+.prob-quote cite{font-size:13px;color:rgba(255,255,255,.35);font-style:normal}
+
+/* HOW IT WORKS */
+.hiw{padding:100px 0;background:var(--light)}
+.hiw-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;margin-top:64px}
+.hiw-line{position:absolute;top:46px;left:12%;right:12%;height:2px;background:linear-gradient(90deg,var(--coral),var(--yellow),var(--cyan),var(--blue));opacity:.3;z-index:0}
+.step{padding:0 16px;text-align:center;position:relative;z-index:1}
+.step-bubble{width:96px;height:96px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:32px;font-weight:800;margin:0 auto 24px;position:relative;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.st1 .step-bubble{background:var(--coral);color:var(--white)}
+.st2 .step-bubble{background:var(--yellow);color:var(--navy)}
+.st3 .step-bubble{background:var(--cyan);color:var(--navy)}
+.st4 .step-bubble{background:var(--blue);color:var(--white)}
+.step-bubble::after{content:'';position:absolute;inset:-6px;border-radius:50%;border:2px dashed currentColor;opacity:.2}
+.step-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:4px 12px;border-radius:100px;margin-bottom:10px;font-family:var(--fd)}
+.st1 .step-tag{background:var(--coral-dim);color:var(--coral)}
+.st2 .step-tag{background:rgba(255,210,63,.18);color:#C8860A}
+.st3 .step-tag{background:var(--cyan-dim);color:#00897B}
+.st4 .step-tag{background:rgba(37,99,235,.1);color:var(--blue)}
+.step-title{font-family:var(--fd);font-size:17px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.step-desc{font-size:13px;color:var(--gray);line-height:1.65}
+
+/* MODULES */
+.modules{padding:100px 0;background:var(--navy);position:relative;overflow:hidden}
+.modules::before{content:'';position:absolute;top:0;right:0;width:500px;height:500px;background:radial-gradient(circle,rgba(255,75,43,.08) 0%,transparent 70%);pointer-events:none}
+.modules .sh h2{color:var(--white)}
+.modules .sh p{color:rgba(255,255,255,.5)}
+.modules .tag{background:rgba(255,75,43,.15);color:var(--coral)}
+.mod-tabs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:48px}
+.mod-tab{padding:10px 22px;border-radius:100px;font-family:var(--fd);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s ease;border:1.5px solid rgba(255,255,255,.1);background:transparent;color:rgba(255,255,255,.45)}
+.mod-tab:hover:not(.active){background:rgba(255,255,255,.06);color:rgba(255,255,255,.75)}
+.mod-tab.active{background:var(--coral);color:var(--white);border-color:transparent}
+.mod-panel{display:none}
+.mod-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.mod-text h3{font-family:var(--fd);font-size:clamp(28px,3.5vw,38px);font-weight:800;color:var(--white);line-height:1.15;letter-spacing:-1px;margin-bottom:14px}
+.mod-text p{font-size:16px;color:rgba(255,255,255,.55);line-height:1.75;margin-bottom:28px}
+.mod-feats{list-style:none;display:flex;flex-direction:column;gap:10px}
+.mod-feats li{display:flex;align-items:flex-start;gap:12px;font-size:14px;color:rgba(255,255,255,.7)}
+.mod-feats li::before{content:'✓';width:20px;height:20px;border-radius:50%;background:var(--coral);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;margin-top:2px}
+
+/* MODULE UI PANELS */
+.mod-ui{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:var(--rl);overflow:hidden}
+.mod-ui-bar{background:rgba(0,0,0,.2);padding:12px 16px;display:flex;align-items:center;gap:8px}
+.ui-dot{width:8px;height:8px;border-radius:50%}
+.mod-ui-bar span{font-size:11px;color:rgba(255,255,255,.3);font-family:var(--fm);flex:1;text-align:center}
+.mod-ui-body{padding:24px}
+
+/* Skill Radar UI */
+.sr-employee{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.06)}
+.sr-av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#7C3AED,var(--blue));display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:13px;font-weight:800;color:var(--white)}
+.sr-name{font-size:13px;font-weight:600;color:rgba(255,255,255,.8);font-family:var(--fd)}
+.sr-role{font-size:11px;color:rgba(255,255,255,.35)}
+.sr-bar{margin-bottom:12px}
+.sr-bar-top{display:flex;justify-content:space-between;margin-bottom:5px}
+.sr-bar-label{font-size:11px;color:rgba(255,255,255,.45);font-family:var(--fm)}
+.sr-bar-val{font-size:11px;font-family:var(--fm)}
+.sr-track{height:7px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden;position:relative}
+.sr-fill{height:100%;border-radius:4px}
+.sr-target{position:absolute;top:0;height:100%;background:transparent;border-right:2px dashed rgba(255,255,255,.25)}
+
+/* Gap Architect UI */
+.ga-grid{display:grid;grid-template-columns:100px repeat(5,1fr);gap:3px;font-size:10px;font-family:var(--fm)}
+.ga-hdr{color:rgba(255,255,255,.35);padding:4px;text-align:center;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ga-row-label{color:rgba(255,255,255,.45);padding:5px 4px;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center}
+.ga-cell{border-radius:4px;padding:5px 4px;text-align:center;font-weight:700;font-size:10px;display:flex;align-items:center;justify-content:center}
+
+/* Pathmaker UI */
+.pm-path{position:relative;padding:16px 0}
+.pm-step-row{display:flex;align-items:flex-start;gap:14px;margin-bottom:18px;position:relative}
+.pm-step-row::after{content:'';position:absolute;left:15px;top:32px;width:2px;height:calc(100% + 2px);background:rgba(255,255,255,.08)}
+.pm-step-row:last-child::after{display:none}
+.pm-step-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;position:relative;z-index:1}
+.pm-step-body{flex:1}
+.pm-step-title{font-size:13px;font-weight:600;color:rgba(255,255,255,.8);font-family:var(--fd);margin-bottom:2px}
+.pm-step-sub{font-size:11px;color:rgba(255,255,255,.35)}
+.pm-step-dur{font-size:10px;color:rgba(255,255,255,.25);font-family:var(--fm);background:rgba(255,255,255,.05);padding:2px 8px;border-radius:100px;display:inline-block;margin-top:4px}
+.pm-done .pm-step-icon{background:var(--green);color:var(--white)}
+.pm-active .pm-step-icon{background:var(--coral);color:var(--white);box-shadow:0 0 0 4px rgba(255,75,43,.2)}
+.pm-next .pm-step-icon{background:rgba(255,255,255,.06);color:rgba(255,255,255,.3)}
+.pm-progress-bar{height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;margin-top:16px;padding-top:0}
+.pm-progress-fill{height:100%;background:linear-gradient(90deg,var(--coral),var(--yellow));border-radius:2px;width:45%;transition:width 1.5s ease}
+
+/* Impact Dashboard UI */
+.id-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.id-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--r);padding:14px}
+.id-card-label{font-size:10px;color:rgba(255,255,255,.35);font-family:var(--fm);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.id-card-num{font-family:var(--fd);font-size:26px;font-weight:800;color:var(--white);line-height:1;margin-bottom:4px}
+.id-card-trend{font-size:11px;font-family:var(--fm)}
+.trend-up{color:var(--green)}.trend-down{color:var(--coral)}
+.id-bar-mini{height:3px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;margin-top:8px}
+.id-bar-mini-fill{height:100%;border-radius:2px}
+
+/* IMPACT */
+.impact{padding:100px 0;background:var(--coral);position:relative;overflow:hidden}
+.impact::before{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(255,255,255,.1) 0%,transparent 70%);pointer-events:none}
+.impact .tag{background:rgba(255,255,255,.2);color:var(--white)}
+.impact .sh h2{color:var(--white)}
+.impact .sh p{color:rgba(255,255,255,.75)}
+.impact-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.ic{padding:40px 24px;background:rgba(255,255,255,.1);border-radius:var(--rl);text-align:center;border:1px solid rgba(255,255,255,.18);transition:transform .3s ease,background .3s ease}
+.ic:hover{transform:translateY(-5px);background:rgba(255,255,255,.15)}
+.ic-num{font-family:var(--fd);font-size:clamp(44px,5vw,64px);font-weight:800;color:var(--white);line-height:1;letter-spacing:-2px;margin-bottom:8px}
+.ic-unit{font-size:28px}
+.ic-label{font-size:14px;color:rgba(255,255,255,.75);line-height:1.5;font-weight:500}
+.ic-sub{font-size:12px;color:rgba(255,255,255,.45);margin-top:6px}
+
+/* PRICING */
+.pricing{padding:100px 0;background:var(--light)}
+.p-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1000px;margin:0 auto}
+.p-card{background:var(--white);border-radius:var(--rl);padding:36px 28px;border:1px solid rgba(10,22,40,.07);transition:transform .3s,box-shadow .3s;position:relative}
+.p-card:hover{transform:translateY(-5px);box-shadow:0 20px 56px rgba(10,22,40,.1)}
+.p-card.featured{background:var(--navy);border:2px solid var(--coral)}
+.p-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--coral);color:var(--white);font-size:11px;font-weight:700;padding:5px 18px;border-radius:100px;font-family:var(--fd);white-space:nowrap;box-shadow:0 4px 12px rgba(255,75,43,.4)}
+.p-tier{font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--coral);margin-bottom:8px}
+.p-name{font-family:var(--fd);font-size:26px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px}
+.p-card:not(.featured) .p-name{color:var(--navy)}
+.p-card.featured .p-name{color:var(--white)}
+.p-desc{font-size:13px;line-height:1.6;margin-bottom:24px}
+.p-card:not(.featured) .p-desc{color:var(--gray)}
+.p-card.featured .p-desc{color:rgba(255,255,255,.5)}
+.p-price{font-family:var(--fd);font-size:40px;font-weight:800;letter-spacing:-1.5px;margin-bottom:4px}
+.p-card:not(.featured) .p-price{color:var(--navy)}
+.p-card.featured .p-price{color:var(--white)}
+.p-price sup{font-size:20px;vertical-align:super;letter-spacing:0}
+.p-period{font-size:12px;margin-bottom:28px}
+.p-card:not(.featured) .p-period{color:var(--gray-l)}
+.p-card.featured .p-period{color:rgba(255,255,255,.4)}
+.p-div{height:1px;margin:20px 0}
+.p-card:not(.featured) .p-div{background:rgba(10,22,40,.07)}
+.p-card.featured .p-div{background:rgba(255,255,255,.1)}
+.p-feats{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:28px}
+.p-feats li{display:flex;align-items:center;gap:10px;font-size:13px}
+.p-card:not(.featured) .p-feats li{color:var(--gray)}
+.p-card.featured .p-feats li{color:rgba(255,255,255,.7)}
+.p-feats li::before{content:'✓';width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;flex-shrink:0}
+.p-card:not(.featured) .p-feats li::before{background:rgba(255,75,43,.1);color:var(--coral)}
+.p-card.featured .p-feats li::before{background:rgba(255,75,43,.25);color:var(--coral)}
+.p-card:not(.featured) .p-btn{background:var(--light);color:var(--navy);border:1.5px solid rgba(10,22,40,.12);border-radius:100px;padding:12px;width:100%;font-family:var(--fd);font-size:14px;font-weight:700;cursor:pointer;transition:all .2s}
+.p-card:not(.featured) .p-btn:hover{background:var(--navy);color:var(--white);border-color:var(--navy)}
+.p-card.featured .p-btn{background:var(--coral);color:var(--white);border:none;border-radius:100px;padding:12px;width:100%;font-family:var(--fd);font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 4px 16px rgba(255,75,43,.3)}
+.p-card.featured .p-btn:hover{background:var(--coral-l)}
+
+/* FOUNDER */
+.founder{padding:100px 0;background:var(--white)}
+.founder-inner{display:grid;grid-template-columns:440px 1fr;gap:64px;align-items:start}
+.f-card{background:var(--navy);border-radius:var(--rl);padding:44px;position:relative;overflow:hidden}
+.f-card::before{content:'';position:absolute;top:-60px;right:-60px;width:240px;height:240px;background:radial-gradient(circle,rgba(255,75,43,.18) 0%,transparent 70%);pointer-events:none}
+.f-card::after{content:'';position:absolute;bottom:-60px;left:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(0,217,200,.1) 0%,transparent 70%);pointer-events:none}
+.f-av{width:76px;height:76px;border-radius:18px;background:linear-gradient(135deg,var(--coral),#FF8A3D);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:26px;font-weight:800;color:var(--white);margin-bottom:20px;letter-spacing:-1px;position:relative;z-index:1}
+.f-name{font-family:var(--fd);font-size:26px;font-weight:800;color:var(--white);letter-spacing:-.5px;margin-bottom:4px;position:relative;z-index:1}
+.f-role{font-size:13px;color:var(--coral);font-weight:600;margin-bottom:20px;position:relative;z-index:1}
+.f-bio{font-size:14px;color:rgba(255,255,255,.55);line-height:1.8;margin-bottom:28px;position:relative;z-index:1}
+.f-links{display:flex;gap:10px;position:relative;z-index:1}
+.f-link{padding:9px 20px;border-radius:100px;font-size:13px;font-weight:700;font-family:var(--fd);cursor:pointer;border:none;transition:all .2s}
+.f-link-p{background:var(--coral);color:var(--white)}
+.f-link-p:hover{background:var(--coral-l)}
+.f-link-s{background:rgba(255,255,255,.07);color:rgba(255,255,255,.6)}
+.f-link-s:hover{background:rgba(255,255,255,.12)}
+.f-stats{display:flex;gap:0;margin-top:28px;border-top:1px solid rgba(255,255,255,.07);padding-top:24px;position:relative;z-index:1}
+.f-stat{flex:1;text-align:center;padding:0 8px}
+.f-stat:not(:last-child){border-right:1px solid rgba(255,255,255,.07)}
+.f-stat-num{font-family:var(--fd);font-size:22px;font-weight:800;color:var(--white);margin-bottom:2px}
+.f-stat-label{font-size:10px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.5px;font-family:var(--fd)}
+
+.f-content{}
+.f-content .tag{margin-bottom:20px}
+.f-content h2{font-family:var(--fd);font-size:clamp(32px,4vw,44px);font-weight:800;color:var(--navy);line-height:1.15;letter-spacing:-1.5px;margin-bottom:16px}
+.f-content h2 .c{color:var(--coral)}
+.f-content p{font-size:16px;color:var(--gray);line-height:1.8;margin-bottom:16px}
+.f-facts{display:flex;flex-direction:column;gap:12px;margin-top:28px}
+.f-fact{display:flex;align-items:flex-start;gap:14px;padding:16px 18px;background:var(--light);border-radius:var(--r);border:1px solid rgba(10,22,40,.06)}
+.f-fact-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.fi1{background:var(--coral-dim)}.fi2{background:rgba(255,210,63,.15)}.fi3{background:var(--cyan-dim)}
+.f-fact strong{font-size:14px;font-weight:700;color:var(--navy);display:block;font-family:var(--fd)}
+.f-fact span{font-size:13px;color:var(--gray);line-height:1.5}
+
+/* CTA */
+.cta{padding:100px 0;background:linear-gradient(135deg,var(--navy) 0%,#162B4E 100%);position:relative;overflow:hidden}
+.cta::before{content:'';position:absolute;top:-150px;right:-100px;width:600px;height:600px;background:radial-gradient(circle,rgba(255,75,43,.12) 0%,transparent 70%);pointer-events:none}
+.cta::after{content:'';position:absolute;bottom:-150px;left:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(0,217,200,.08) 0%,transparent 70%);pointer-events:none}
+.cta-inner{text-align:center;position:relative;z-index:1}
+.cta-inner h2{font-family:var(--fd);font-size:clamp(40px,5vw,64px);font-weight:800;color:var(--white);letter-spacing:-2px;line-height:1.1;margin-bottom:20px}
+.cta-inner h2 .c{color:var(--coral)}
+.cta-inner p{font-size:18px;color:rgba(255,255,255,.55);max-width:480px;margin:0 auto 44px;line-height:1.7}
+.cta-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.cta-note{font-size:12px;color:rgba(255,255,255,.3);margin-top:20px}
+
+/* FOOTER */
+footer{background:#040D1A;padding:64px 0 32px}
+.footer-grid{display:grid;grid-template-columns:280px 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.fb .logo{font-size:20px;margin-bottom:14px}
+.fb p{font-size:13px;color:rgba(255,255,255,.3);line-height:1.7}
+.fc h4{font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:16px}
+.fc ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.fc ul a{font-size:13px;color:rgba(255,255,255,.4);transition:color .2s}
+.fc ul a:hover{color:rgba(255,255,255,.8)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.05);padding-top:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.footer-bottom p{font-size:12px;color:rgba(255,255,255,.2)}
+.f-badges{display:flex;gap:8px}
+.f-badge{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:5px 12px;border-radius:100px;border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.25)}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .hero-inner{grid-template-columns:1fr;gap:40px}
+  .hero-card{max-width:480px}
+  .founder-inner{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
+}
+@media(max-width:900px){
+  .prob-stats{grid-template-columns:1fr 1fr}
+  .hiw-steps{grid-template-columns:repeat(2,1fr);gap:36px}
+  .hiw-line{display:none}
+  .mod-panel.active{grid-template-columns:1fr;gap:32px}
+  .impact-cards{grid-template-columns:repeat(2,1fr)}
+  .p-cards{grid-template-columns:1fr;max-width:400px;margin:0 auto}
+}
+@media(max-width:640px){
+  .prob-stats{grid-template-columns:1fr}
+  .hiw-steps{grid-template-columns:1fr}
+  .impact-cards{grid-template-columns:1fr 1fr}
+  .nav-links{display:none}
+  .hero h1{font-size:46px;letter-spacing:-1.5px}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#" class="logo">
+        <div class="logo-mark">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10" cy="4" r="2.5" fill="white"/>
+            <circle cx="3" cy="15" r="2.5" fill="white" opacity=".7"/>
+            <circle cx="17" cy="15" r="2.5" fill="white" opacity=".7"/>
+            <circle cx="10" cy="11" r="2" fill="white" opacity=".5"/>
+            <line x1="10" y1="6.5" x2="10" y2="9" stroke="white" stroke-width="1" opacity=".4"/>
+            <line x1="10" y1="13" x2="4.5" y2="13.5" stroke="white" stroke-width="1" opacity=".3"/>
+            <line x1="10" y1="13" x2="15.5" y2="13.5" stroke="white" stroke-width="1" opacity=".3"/>
+          </svg>
+        </div>
+        Optimly
+      </a>
+      <ul class="nav-links">
+        <li><a href="#modules">Product</a></li>
+        <li><a href="#hiw">How It Works</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#founder">About</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="#" class="btn btn-outline" style="font-size:14px;padding:10px 20px">Sign In</a>
+        <a href="#" class="btn btn-primary" style="font-size:14px;padding:10px 22px">Get Started Free →</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <canvas id="hc"></canvas>
+  <div class="hero-glow hg1"></div>
+  <div class="hero-glow hg2"></div>
+  <div class="hero-glow hg3"></div>
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-tag reveal">
+          <span class="tag">AI-Powered L&amp;D Intelligence</span>
+        </div>
+        <h1 class="reveal d1">Know the <span class="c">Gap</span>.<br>Close It <span class="y">Faster</span>.</h1>
+        <p class="hero-sub reveal d2">Optimly maps your workforce's skills, pinpoints what's missing, and automatically generates personalized learning paths — so your L&amp;D budget actually moves the needle.</p>
+        <div class="hero-actions reveal d3">
+          <a href="#" class="btn btn-primary">Start Free Trial →</a>
+          <a href="#modules" class="btn btn-outline">See the Product</a>
+        </div>
+        <div class="hero-trust reveal d4">
+          <div class="hero-avatars">
+            <div class="h-av">JK</div>
+            <div class="h-av">SR</div>
+            <div class="h-av">PM</div>
+            <div class="h-av">+</div>
+          </div>
+          <div class="hero-trust-text">
+            <strong>50+ L&amp;D teams across India</strong>
+            already closing skills gaps with Optimly
+          </div>
+        </div>
+      </div>
+      <!-- LIVE DASHBOARD CARD -->
+      <div class="hero-card reveal-r d2">
+        <div class="hc-header">
+          <div class="hc-title">Skills Gap Report · Priya Menon</div>
+          <div class="hc-live">LIVE</div>
+        </div>
+        <div class="hc-employee">
+          <div class="hc-emp-av">PM</div>
+          <div class="hc-emp-info">
+            <strong>Priya Menon</strong>
+            <span>Senior Data Analyst · Analytics Team</span>
+          </div>
+        </div>
+        <div class="gap-row">
+          <span class="gap-skill">Python / Pandas</span>
+          <div class="gap-bar-track">
+            <div class="gap-bar-need sr-fill" style="width:90%;background:rgba(255,75,43,.2)"></div>
+            <div class="gap-bar-have sr-fill" style="width:72%;background:#00D9C8" id="gb1"></div>
+          </div>
+          <span class="gap-score" style="color:var(--cyan)">72%</span>
+        </div>
+        <div class="gap-row">
+          <span class="gap-skill">ML Fundamentals</span>
+          <div class="gap-bar-track">
+            <div class="gap-bar-need sr-fill" style="width:85%;background:rgba(255,75,43,.2)"></div>
+            <div class="gap-bar-have sr-fill" style="width:38%;background:var(--coral)" id="gb2"></div>
+          </div>
+          <span class="gap-score" style="color:var(--coral)">38%</span>
+        </div>
+        <div class="gap-row">
+          <span class="gap-skill">SQL Advanced</span>
+          <div class="gap-bar-track">
+            <div class="gap-bar-need sr-fill" style="width:80%;background:rgba(255,75,43,.2)"></div>
+            <div class="gap-bar-have sr-fill" style="width:65%;background:#FFD23F" id="gb3"></div>
+          </div>
+          <span class="gap-score" style="color:var(--yellow)">65%</span>
+        </div>
+        <div class="gap-row">
+          <span class="gap-skill">Stakeholder Comm.</span>
+          <div class="gap-bar-track">
+            <div class="gap-bar-need sr-fill" style="width:90%;background:rgba(255,75,43,.2)"></div>
+            <div class="gap-bar-have sr-fill" style="width:80%;background:var(--green)" id="gb4"></div>
+          </div>
+          <span class="gap-score" style="color:var(--green)">80%</span>
+        </div>
+        <div class="hc-divider"></div>
+        <div class="hc-insight">
+          <div class="hc-insight-icon">⚡</div>
+          <div class="hc-insight-text">
+            <strong>Critical Gap Detected</strong>
+            ML Fundamentals is 47pts below role benchmark. Optimly has built a 6-week path. Estimated closure: Jan 12.
+          </div>
+        </div>
+        <div class="hc-actions">
+          <button class="hc-btn hc-btn-primary">Activate Learning Path</button>
+          <button class="hc-btn hc-btn-secondary">View Full Report</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="container">
+    <div class="trust-inner">
+      <span class="trust-label">Trusted by</span>
+      <div class="trust-logos">
+        <span class="tl">Infosys</span>
+        <span class="tl">Wipro</span>
+        <span class="tl">Zepto</span>
+        <span class="tl">Groww</span>
+        <span class="tl">HDFC Life</span>
+        <span class="tl">Zomato</span>
+        <span class="tl">PhonePe</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="container">
+    <div class="sh reveal">
+      <span class="tag">The Problem</span>
+      <h2>Corporate training is <span class="c">spending billions.</span><br>Getting nothing back.</h2>
+      <p>Companies invest massively in L&amp;D — and most of it doesn't stick. Here's the data.</p>
+    </div>
+    <div class="prob-stats">
+      <div class="s-card c1 reveal d1">
+        <div class="s-num">70%</div>
+        <div class="s-label">of employees say training they receive<br>is <strong>irrelevant to their actual work</strong></div>
+      </div>
+      <div class="s-card c2 reveal d2">
+        <div class="s-num">₹82K</div>
+        <div class="s-label">spent per employee on L&amp;D annually — with <strong>no way to measure ROI</strong></div>
+      </div>
+      <div class="s-card c3 reveal d3">
+        <div class="s-num">40%</div>
+        <div class="s-label">of L&amp;D managers' time wasted on<br><strong>manual needs assessment</strong> — every quarter</div>
+      </div>
+    </div>
+    <div class="prob-quote reveal">
+      <blockquote>"We had 200 people sitting through the same leadership module. Half of them were already senior managers. The other half were fresh grads. Everyone wasted a day."</blockquote>
+      <cite>— L&amp;D Head, leading Indian IT services firm (500+ employees)</cite>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="hiw" id="hiw">
+  <div class="container">
+    <div class="sh reveal">
+      <span class="tag">How It Works</span>
+      <h2>From invisible gaps to <span class="c">closed</span> in weeks</h2>
+      <p>Four modules. One continuous intelligence loop. No data migration, no overhaul of your existing stack.</p>
+    </div>
+    <div class="hiw-steps">
+      <div class="hiw-line"></div>
+      <div class="step st1 reveal d1">
+        <div class="step-bubble">1</div>
+        <div class="step-tag">Skill Radar</div>
+        <div class="step-title">Map Your Workforce</div>
+        <div class="step-desc">Optimly ingests your HRMS, performance data, and LinkedIn profiles to build a live skills graph of every employee — without any migration.</div>
+      </div>
+      <div class="step st2 reveal d2">
+        <div class="step-bubble">2</div>
+        <div class="step-tag">Gap Architect</div>
+        <div class="step-title">Identify What's Missing</div>
+        <div class="step-desc">AI compares your workforce's skills against role benchmarks and your strategic priorities — delivering a prioritized gap matrix for every team.</div>
+      </div>
+      <div class="step st3 reveal d3">
+        <div class="step-bubble">3</div>
+        <div class="step-tag">Pathmaker</div>
+        <div class="step-title">Learn Automatically</div>
+        <div class="step-desc">Personalized learning paths generated per employee — curated from your LMS + Coursera + LinkedIn Learning — sequenced by skill dependency and time available.</div>
+      </div>
+      <div class="step st4 reveal d4">
+        <div class="step-bubble">4</div>
+        <div class="step-tag">Impact Dashboard</div>
+        <div class="step-title">Prove Your ROI</div>
+        <div class="step-desc">Track gap closure rates, learning velocity, and correlation with performance scores. Quarterly reports auto-generated and board-ready.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULES -->
+<section class="modules" id="modules">
+  <div class="container">
+    <div class="sh reveal">
+      <span class="tag">The Product</span>
+      <h2 style="color:var(--white)">Four modules. <span class="c">One platform.</span></h2>
+      <p style="color:rgba(255,255,255,.5)">Each module is powerful standalone. Together, they form a complete L&amp;D intelligence loop.</p>
+    </div>
+    <div class="mod-tabs reveal d1">
+      <button class="mod-tab active" onclick="switchMod(0)">Skill Radar</button>
+      <button class="mod-tab" onclick="switchMod(1)">Gap Architect</button>
+      <button class="mod-tab" onclick="switchMod(2)">Pathmaker</button>
+      <button class="mod-tab" onclick="switchMod(3)">Impact Dashboard</button>
+    </div>
+
+    <!-- PANEL 0: SKILL RADAR -->
+    <div class="mod-panel active" id="mp0">
+      <div class="mod-text reveal-l">
+        <h3>Know exactly what skills live inside your organization.</h3>
+        <p>Skill Radar builds a live, dynamic skills graph of your entire workforce — pulling from HRMS, LinkedIn, performance reviews, and a 15-minute AI-powered self-assessment. No spreadsheets. No surveys. Continuously updated.</p>
+        <ul class="mod-feats">
+          <li>800+ skill taxonomy across technical, functional, behavioral, and leadership skills</li>
+          <li>Proficiency scoring (0–5) per skill per employee, with confidence indicators</li>
+          <li>Team-level skill heatmaps and org-wide skills fingerprint for CHROs</li>
+          <li>Skill decay alerts when certifications age or skills go unpracticed</li>
+          <li>LLM-powered inference from GitHub, Jira, and project descriptions</li>
+        </ul>
+      </div>
+      <div class="mod-ui reveal-r">
+        <div class="mod-ui-bar">
+          <div class="ui-dot" style="background:#FF5F56"></div>
+          <div class="ui-dot" style="background:#FFBD2E"></div>
+          <div class="ui-dot" style="background:#27C93F"></div>
+          <span>skill_radar · priya_menon.profile</span>
+        </div>
+        <div class="mod-ui-body">
+          <div class="sr-employee">
+            <div class="sr-av">PM</div>
+            <div>
+              <div class="sr-name">Priya Menon</div>
+              <div class="sr-role">Senior Data Analyst · 3 yrs tenure</div>
+            </div>
+            <div style="margin-left:auto;background:rgba(255,75,43,.15);color:var(--coral);font-size:10px;font-weight:700;padding:4px 10px;border-radius:100px;font-family:var(--fm)">2 Critical Gaps</div>
+          </div>
+          <div class="sr-bar">
+            <div class="sr-bar-top"><span class="sr-bar-label">Python / Pandas</span><span class="sr-bar-val" style="color:var(--cyan)">72 / 100</span></div>
+            <div class="sr-track"><div class="sr-fill" style="width:72%;background:var(--cyan)"></div><div class="sr-target" style="width:90%"></div></div>
+          </div>
+          <div class="sr-bar">
+            <div class="sr-bar-top"><span class="sr-bar-label">ML Fundamentals</span><span class="sr-bar-val" style="color:var(--coral)">38 / 100</span></div>
+            <div class="sr-track"><div class="sr-fill" style="width:38%;background:var(--coral)"></div><div class="sr-target" style="width:85%"></div></div>
+          </div>
+          <div class="sr-bar">
+            <div class="sr-bar-top"><span class="sr-bar-label">SQL Advanced</span><span class="sr-bar-val" style="color:var(--yellow)">65 / 100</span></div>
+            <div class="sr-track"><div class="sr-fill" style="width:65%;background:var(--yellow)"></div><div class="sr-target" style="width:80%"></div></div>
+          </div>
+          <div class="sr-bar">
+            <div class="sr-bar-top"><span class="sr-bar-label">Data Visualization</span><span class="sr-bar-val" style="color:var(--coral)">41 / 100</span></div>
+            <div class="sr-track"><div class="sr-fill" style="width:41%;background:var(--coral)"></div><div class="sr-target" style="width:80%"></div></div>
+          </div>
+          <div class="sr-bar">
+            <div class="sr-bar-top"><span class="sr-bar-label">Stakeholder Comm.</span><span class="sr-bar-val" style="color:var(--green)">80 / 100</span></div>
+            <div class="sr-track"><div class="sr-fill" style="width:80%;background:var(--green)"></div><div class="sr-target" style="width:85%"></div></div>
+          </div>
+          <div style="margin-top:14px;display:flex;align-items:center;gap:16px;font-size:10px;color:rgba(255,255,255,.3);font-family:var(--fm)">
+            <span style="display:flex;align-items:center;gap:4px"><span style="width:24px;height:6px;background:rgba(255,255,255,.15);border-radius:3px;display:inline-block;border-right:2px dashed rgba(255,255,255,.3)"></span> Role Benchmark</span>
+            <span style="display:flex;align-items:center;gap:4px"><span style="width:24px;height:6px;background:var(--cyan);border-radius:3px;display:inline-block"></span> Current Level</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL 1: GAP ARCHITECT -->
+    <div class="mod-panel" id="mp1">
+      <div class="mod-text reveal-l">
+        <h3>A prioritized gap matrix — for every team, every quarter.</h3>
+        <p>Gap Architect compares your workforce's skills against role benchmarks, your strategic priorities, and industry data. The result: a ranked gap list with business impact scores, not a wall of data to sift through.</p>
+        <ul class="mod-feats">
+          <li>Four gap types: Critical, Strategic, Growth, and Decay Risk — each with priority scoring</li>
+          <li>Business impact weighting: gaps linked to company strategy score higher</li>
+          <li>Team and org-level gap heatmaps — drill from CHRO view to individual</li>
+          <li>Hiring vs. Training decision engine: when is it cheaper to hire vs. upskill?</li>
+          <li>200+ role benchmarks updated quarterly from live market data</li>
+        </ul>
+      </div>
+      <div class="mod-ui reveal-r">
+        <div class="mod-ui-bar">
+          <div class="ui-dot" style="background:#FF5F56"></div>
+          <div class="ui-dot" style="background:#FFBD2E"></div>
+          <div class="ui-dot" style="background:#27C93F"></div>
+          <span>gap_architect · analytics_team · Q1 2025</span>
+        </div>
+        <div class="mod-ui-body">
+          <div style="font-size:10px;color:rgba(255,255,255,.35);font-family:var(--fm);margin-bottom:10px">TEAM GAP MATRIX · 8 MEMBERS · SORTED BY IMPACT SCORE</div>
+          <div class="ga-grid">
+            <div class="ga-hdr"></div>
+            <div class="ga-hdr">Python</div>
+            <div class="ga-hdr">ML Ops</div>
+            <div class="ga-hdr">Spark</div>
+            <div class="ga-hdr">Tableau</div>
+            <div class="ga-hdr">Comm.</div>
+            <div class="ga-row-label">Priya M.</div>
+            <div class="ga-cell" style="background:rgba(255,210,63,.25);color:#FFD23F">72</div>
+            <div class="ga-cell" style="background:rgba(255,75,43,.35);color:var(--coral)">38</div>
+            <div class="ga-cell" style="background:rgba(255,75,43,.25);color:var(--coral)">45</div>
+            <div class="ga-cell" style="background:rgba(255,75,43,.3);color:var(--coral)">41</div>
+            <div class="ga-cell" style="background:rgba(0,217,200,.2);color:var(--cyan)">80</div>
+            <div class="ga-row-label">Ravi K.</div>
+            <div class="ga-cell" style="background:rgba(0,217,200,.2);color:var(--cyan)">88</div>
+            <div class="ga-cell" style="background:rgba(255,210,63,.25);color:#FFD23F">62</div>
+            <div class="ga-cell" style="background:rgba(0,217,200,.2);color:var(--cyan)">79</div>
+            <div class="ga-cell" style="background:rgba(255,75,43,.3);color:var(--coral)">44</div>
+            <div class="ga-cell" style="background:rgba(255,75,43,.2);color:var(--coral)">55</div>
+            <div class="ga-row-label">Ananya S.</div>
+            <div class="ga-cell" style="background:rgba(255,75,43,.3);color:var(--coral)">52</div>
+            <div class="ga-cell" style="background:rgba(255,75,43,.4);color:var(--coral)">31</div>
+            <div class="ga-cell" style="background:rgba(255,75,43,.3);color:var(--coral)">48</div>
+            <div class="ga-cell" style="background:rgba(255,210,63,.25);color:#FFD23F">67</div>
+            <div class="ga-cell" style="background:rgba(0,217,200,.25);color:var(--cyan)">85</div>
+            <div class="ga-row-label">Karan T.</div>
+            <div class="ga-cell" style="background:rgba(0,217,200,.25);color:var(--cyan)">91</div>
+            <div class="ga-cell" style="background:rgba(255,210,63,.25);color:#FFD23F">70</div>
+            <div class="ga-cell" style="background:rgba(0,217,200,.2);color:var(--cyan)">83</div>
+            <div class="ga-cell" style="background:rgba(255,75,43,.25);color:var(--coral)">50</div>
+            <div class="ga-cell" style="background:rgba(255,210,63,.25);color:#FFD23F">66</div>
+          </div>
+          <div style="margin-top:14px;padding:12px;background:rgba(255,75,43,.08);border-radius:8px;border:1px solid rgba(255,75,43,.15)">
+            <div style="font-size:10px;font-weight:700;color:var(--coral);font-family:var(--fd);margin-bottom:4px">⚠ Critical Gap: ML Ops — 4 of 8 members below threshold</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.45);font-family:var(--fm)">Impact Score: 94 · Est. path: 8 weeks · Recommend: team cohort</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL 2: PATHMAKER -->
+    <div class="mod-panel" id="mp2">
+      <div class="mod-text reveal-l">
+        <h3>A learning path that actually fits inside someone's week.</h3>
+        <p>Pathmaker auto-generates personalized, sequenced learning journeys for each employee — curated from your LMS, external libraries, and AI-generated micro-content. Time-budgeted to their available hours.</p>
+        <ul class="mod-feats">
+          <li>Dependency-sequenced paths: Python before Pandas, Docker before Kubernetes</li>
+          <li>Content-agnostic: curates from Coursera, LinkedIn Learning, Udemy, or your own LMS</li>
+          <li>AI Micro-Content: converts internal SOPs and docs into 5-min learning modules</li>
+          <li>Adaptive: path recalibrates if learner moves faster or slower than projected</li>
+          <li>Nudge engine: learning reminders via Slack/Teams sent during low-meeting windows</li>
+        </ul>
+      </div>
+      <div class="mod-ui reveal-r">
+        <div class="mod-ui-bar">
+          <div class="ui-dot" style="background:#FF5F56"></div>
+          <div class="ui-dot" style="background:#FFBD2E"></div>
+          <div class="ui-dot" style="background:#27C93F"></div>
+          <span>pathmaker · priya_menon · ML Fundamentals Path</span>
+        </div>
+        <div class="mod-ui-body">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+            <div>
+              <div style="font-size:13px;font-weight:700;color:rgba(255,255,255,.8);font-family:var(--fd)">ML Fundamentals</div>
+              <div style="font-size:11px;color:rgba(255,255,255,.35);font-family:var(--fm)">8 weeks · 3 hrs/week · Est. closure: Mar 14</div>
+            </div>
+            <div style="font-size:10px;font-weight:700;color:var(--coral);font-family:var(--fm);background:rgba(255,75,43,.12);padding:4px 10px;border-radius:100px">45% complete</div>
+          </div>
+          <div class="pm-path">
+            <div class="pm-step-row pm-done">
+              <div class="pm-step-icon">✓</div>
+              <div class="pm-step-body">
+                <div class="pm-step-title">Statistics &amp; Probability Refresher</div>
+                <div class="pm-step-sub">Khan Academy · 4 hrs · Completed Jan 8</div>
+              </div>
+            </div>
+            <div class="pm-step-row pm-done">
+              <div class="pm-step-icon">✓</div>
+              <div class="pm-step-body">
+                <div class="pm-step-title">Intro to Machine Learning — Coursera</div>
+                <div class="pm-step-sub">Andrew Ng · 6 hrs · Completed Jan 15</div>
+              </div>
+            </div>
+            <div class="pm-step-row pm-active">
+              <div class="pm-step-icon">▶</div>
+              <div class="pm-step-body">
+                <div class="pm-step-title">Supervised Learning with Scikit-Learn</div>
+                <div class="pm-step-sub">Pluralsight · In progress · 3.2 hrs left</div>
+                <div class="pm-step-dur">~2 sessions remaining</div>
+              </div>
+            </div>
+            <div class="pm-step-row pm-next">
+              <div class="pm-step-icon">4</div>
+              <div class="pm-step-body">
+                <div class="pm-step-title">Neural Networks Fundamentals</div>
+                <div class="pm-step-sub">Optimly Micro-Content · Auto-generated from team docs</div>
+              </div>
+            </div>
+            <div class="pm-step-row pm-next">
+              <div class="pm-step-icon">5</div>
+              <div class="pm-step-body">
+                <div class="pm-step-title">Model Evaluation &amp; Deployment</div>
+                <div class="pm-step-sub">Internal LMS · Company-specific workflows</div>
+              </div>
+            </div>
+          </div>
+          <div class="pm-progress-bar"><div class="pm-progress-fill" id="pmbar"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL 3: IMPACT DASHBOARD -->
+    <div class="mod-panel" id="mp3">
+      <div class="mod-text reveal-l">
+        <h3>Turn L&amp;D data into a language the CFO speaks.</h3>
+        <p>Impact Dashboard tracks gap closure, learning velocity, and ROI proxies — and auto-generates board-ready quarterly reports. Finally, your L&amp;D budget has a business case that holds up under scrutiny.</p>
+        <ul class="mod-feats">
+          <li>Gap closure rate: % of identified gaps closed per rolling 90 days</li>
+          <li>Skills velocity: average proficiency improvement per employee per quarter</li>
+          <li>Training ROI proxy: correlation between learning activity and performance review scores</li>
+          <li>Retention signal: attrition rate for employees on active vs. inactive learning paths</li>
+          <li>Auto-generated quarterly L&amp;D board reports — no manual PowerPoint</li>
+        </ul>
+      </div>
+      <div class="mod-ui reveal-r">
+        <div class="mod-ui-bar">
+          <div class="ui-dot" style="background:#FF5F56"></div>
+          <div class="ui-dot" style="background:#FFBD2E"></div>
+          <div class="ui-dot" style="background:#27C93F"></div>
+          <span>impact_dashboard · org_view · Q4 2024</span>
+        </div>
+        <div class="mod-ui-body">
+          <div class="id-grid">
+            <div class="id-card">
+              <div class="id-card-label">Gap Closure Rate</div>
+              <div class="id-card-num">68%</div>
+              <div class="id-card-trend trend-up">↑ +14% vs last quarter</div>
+              <div class="id-bar-mini"><div class="id-bar-mini-fill" style="width:68%;background:var(--green)"></div></div>
+            </div>
+            <div class="id-card">
+              <div class="id-card-label">Avg Skills Velocity</div>
+              <div class="id-card-num">+22pts</div>
+              <div class="id-card-trend trend-up">↑ Proficiency gain / qtr</div>
+              <div class="id-bar-mini"><div class="id-bar-mini-fill" style="width:72%;background:var(--cyan)"></div></div>
+            </div>
+            <div class="id-card">
+              <div class="id-card-label">L&amp;D ROI Score</div>
+              <div class="id-card-num">3.2x</div>
+              <div class="id-card-trend trend-up">↑ vs 1.1x industry avg</div>
+              <div class="id-bar-mini"><div class="id-bar-mini-fill" style="width:80%;background:var(--yellow)"></div></div>
+            </div>
+            <div class="id-card">
+              <div class="id-card-label">Active Learners</div>
+              <div class="id-card-num">84%</div>
+              <div class="id-card-trend trend-down">↓ 6% below target (90%)</div>
+              <div class="id-bar-mini"><div class="id-bar-mini-fill" style="width:84%;background:var(--coral)"></div></div>
+            </div>
+          </div>
+          <div style="margin-top:14px;padding:14px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:8px">
+            <div style="font-size:10px;font-weight:700;color:var(--green);font-family:var(--fd);margin-bottom:3px">📊 Q4 Board Report — Ready for Download</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.4);font-family:var(--fm)">Auto-generated · 14 pages · Includes ROI attribution analysis</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT STATS -->
+<section class="impact">
+  <div class="container">
+    <div class="sh reveal">
+      <span class="tag">Proven Results</span>
+      <h2>What L&amp;D teams achieve with Optimly</h2>
+      <p>Across 50+ deployments in Indian mid-market companies, the numbers are consistent.</p>
+    </div>
+    <div class="impact-cards">
+      <div class="ic reveal d1">
+        <div class="ic-num"><span class="counter" data-target="42">0</span><span class="ic-unit">%</span></div>
+        <div class="ic-label">Faster skill development vs. generic training programs</div>
+        <div class="ic-sub">Measured by proficiency gain per week</div>
+      </div>
+      <div class="ic reveal d2">
+        <div class="ic-num"><span class="counter" data-target="3" data-decimal=".2x">0</span></div>
+        <div class="ic-label">L&amp;D ROI vs. 1.1x industry average for unoptimised training</div>
+        <div class="ic-sub">Revenue impact attribution model</div>
+      </div>
+      <div class="ic reveal d3">
+        <div class="ic-num"><span class="counter" data-target="60">0</span><span class="ic-unit">%</span></div>
+        <div class="ic-label">Reduction in time spent on manual needs assessment per quarter</div>
+        <div class="ic-sub">L&amp;D manager hours saved</div>
+      </div>
+      <div class="ic reveal d4">
+        <div class="ic-num"><span class="counter" data-target="85">0</span><span class="ic-unit">%</span></div>
+        <div class="ic-label">Employee completion rate vs. 23% industry average for self-paced learning</div>
+        <div class="ic-sub">Driven by personalization and nudge engine</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="sh reveal">
+      <span class="tag">Pricing</span>
+      <h2>Simple, transparent pricing.<br><span class="c">Per employee, per month.</span></h2>
+      <p>Annual billing. No setup fees. Connect your HRMS and go live in 45 days.</p>
+    </div>
+    <div class="p-cards">
+      <div class="p-card reveal d1">
+        <div class="p-tier">Radar</div>
+        <div class="p-name">Skill Map</div>
+        <div class="p-desc">For companies that want to start with a baseline skills audit and understand where they stand.</div>
+        <div class="p-price"><sup>₹</sup>180</div>
+        <div class="p-period">per employee / month · billed annually</div>
+        <div class="p-div"></div>
+        <ul class="p-feats">
+          <li>Skill Radar module (full)</li>
+          <li>Up to 500 employees</li>
+          <li>800+ skill taxonomy</li>
+          <li>Team &amp; org heatmaps</li>
+          <li>Basic HRMS integration</li>
+          <li>Email support</li>
+        </ul>
+        <button class="p-btn">Start with Skill Map →</button>
+      </div>
+      <div class="p-card featured reveal d2">
+        <div class="p-badge">Most Popular</div>
+        <div class="p-tier">Navigate</div>
+        <div class="p-name">Gap Intelligence</div>
+        <div class="p-desc">The full gap analysis experience — from skills mapping to prioritized gap matrix. Perfect for active L&amp;D teams.</div>
+        <div class="p-price"><sup>₹</sup>320</div>
+        <div class="p-period">per employee / month · billed annually</div>
+        <div class="p-div"></div>
+        <ul class="p-feats">
+          <li>Skill Radar + Gap Architect</li>
+          <li>Unlimited employees</li>
+          <li>Role benchmarking (200+ roles)</li>
+          <li>Strategic gap prioritization</li>
+          <li>HRMS + LMS integrations</li>
+          <li>Dedicated onboarding</li>
+        </ul>
+        <button class="p-btn">Start with Navigate →</button>
+      </div>
+      <div class="p-card reveal d3">
+        <div class="p-tier">Accelerate</div>
+        <div class="p-name">Full Platform</div>
+        <div class="p-desc">All four modules. The complete loop from skills discovery to AI-generated learning paths to board-ready ROI reporting.</div>
+        <div class="p-price"><sup>₹</sup>520</div>
+        <div class="p-period">per employee / month · billed annually</div>
+        <div class="p-div"></div>
+        <ul class="p-feats">
+          <li>All 4 modules included</li>
+          <li>AI Micro-Content generation</li>
+          <li>Slack / Teams nudge engine</li>
+          <li>Impact Dashboard + board reports</li>
+          <li>Hiring vs. training decision engine</li>
+          <li>Dedicated CSM + SLA</li>
+        </ul>
+        <button class="p-btn">Start with Accelerate →</button>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:32px;font-size:14px;color:var(--gray)">
+      1,000+ employees? <a href="#" style="color:var(--coral);font-weight:600">Talk to us about Enterprise pricing →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section class="founder" id="founder">
+  <div class="container">
+    <div class="founder-inner">
+      <div class="f-card reveal-l">
+        <div class="f-av">AM</div>
+        <div class="f-name">Abhinav Madke</div>
+        <div class="f-role">Founder &amp; CEO, Optimly</div>
+        <div class="f-bio">
+          Built Optimly after watching intelligent, motivated people sit through training that had nothing to do with their actual gaps. The problem wasn't the content — it was the intelligence layer connecting people to the right learning at the right time.<br><br>
+          Previously led workforce analytics at a 1,200-person consulting firm. Passionate about making L&amp;D a strategic advantage, not a compliance checkbox.
+        </div>
+        <div class="f-links">
+          <button class="f-link f-link-p">Connect on LinkedIn</button>
+          <button class="f-link f-link-s">Read the Story</button>
+        </div>
+        <div class="f-stats">
+          <div class="f-stat">
+            <div class="f-stat-num">50+</div>
+            <div class="f-stat-label">Customers</div>
+          </div>
+          <div class="f-stat">
+            <div class="f-stat-num">₹2.4Cr</div>
+            <div class="f-stat-label">ARR</div>
+          </div>
+          <div class="f-stat">
+            <div class="f-stat-num">8</div>
+            <div class="f-stat-label">Team Size</div>
+          </div>
+          <div class="f-stat">
+            <div class="f-stat-num">2023</div>
+            <div class="f-stat-label">Founded</div>
+          </div>
+        </div>
+      </div>
+      <div class="f-content reveal-r">
+        <span class="tag">Our Story</span>
+        <h2>Built by someone who's<br>lived the <span class="c">L&amp;D problem.</span></h2>
+        <p>The insight was frustratingly simple: every CHRO I spoke to knew their people needed upskilling. Zero of them could tell me exactly which employee needed exactly which skill by exactly when.</p>
+        <p>Existing tools either offered content libraries (no intelligence) or enterprise platforms priced for Fortune 500 companies that required 18-month implementations. The Indian mid-market — hundreds of growing tech companies with real L&amp;D budgets and real skills gaps — had nothing built for them.</p>
+        <p>Optimly is the answer. An AI intelligence layer that connects to your existing systems, speaks the language of your HRMS, and delivers personalized learning at the speed that modern organizations need to move.</p>
+        <div class="f-facts">
+          <div class="f-fact">
+            <div class="f-fact-icon fi1">🎯</div>
+            <div>
+              <strong>Problem-first thinking</strong>
+              <span>Every feature in Optimly traces directly back to a pain we heard from an L&amp;D head or CHRO in a real company.</span>
+            </div>
+          </div>
+          <div class="f-fact">
+            <div class="f-fact-icon fi2">🔗</div>
+            <div>
+              <strong>No migration, no disruption</strong>
+              <span>Like an intelligence layer on top of what you already have — we connect to your HRMS, LMS, and communication tools without asking you to change them.</span>
+            </div>
+          </div>
+          <div class="f-fact">
+            <div class="f-fact-icon fi3">📈</div>
+            <div>
+              <strong>Backed by Indian L&amp;D data</strong>
+              <span>Our skill benchmarks and gap models are trained on Indian workforce data — not US or European proxies that don't reflect your reality.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="container">
+    <div class="cta-inner">
+      <h2 class="reveal">Your team's next skill gap is<br>forming <span class="c">right now.</span></h2>
+      <p class="reveal d1">The sooner you can see it, the faster you can close it. Set up your first skills audit in 45 minutes.</p>
+      <div class="cta-actions reveal d2">
+        <a href="#" class="btn btn-primary" style="font-size:16px;padding:16px 36px">Start Free Trial — No Credit Card →</a>
+        <a href="#" class="btn btn-outline" style="font-size:16px;padding:16px 32px">Book a 30-min Demo</a>
+      </div>
+      <div class="cta-note reveal d3">Free trial · 45-day activation · Works with your existing HRMS</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="fb">
+        <div class="logo">
+          <div class="logo-mark" style="width:30px;height:30px;border-radius:7px">
+            <svg viewBox="0 0 20 20" fill="none" width="16" height="16">
+              <circle cx="10" cy="4" r="2.5" fill="white"/>
+              <circle cx="3" cy="15" r="2.5" fill="white" opacity=".7"/>
+              <circle cx="17" cy="15" r="2.5" fill="white" opacity=".7"/>
+              <circle cx="10" cy="11" r="2" fill="white" opacity=".5"/>
+            </svg>
+          </div>
+          Optimly
+        </div>
+        <p>AI-powered L&amp;D intelligence for Indian mid-market companies. Know the gap. Close it faster.</p>
+      </div>
+      <div class="fc">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#">Skill Radar</a></li>
+          <li><a href="#">Gap Architect</a></li>
+          <li><a href="#">Pathmaker</a></li>
+          <li><a href="#">Impact Dashboard</a></li>
+          <li><a href="#">Integrations</a></li>
+        </ul>
+      </div>
+      <div class="fc">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Press Kit</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="fc">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">Skills Gap Calculator</a></li>
+          <li><a href="#">L&amp;D Benchmark Report</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Optimly Technologies Pvt. Ltd. · Bengaluru, India</p>
+      <div class="f-badges">
+        <span class="f-badge">SOC 2</span>
+        <span class="f-badge">GDPR</span>
+        <span class="f-badge">DPDP</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ---- CANVAS HERO ANIMATION ---- */
+(function(){
+  const canvas = document.getElementById('hc');
+  const ctx = canvas.getContext('2d');
+  const skills = ['Python','Leadership','SQL','ML Ops','Communication','Tableau','Docker','Agile','Data Analysis','Product Strategy','Kubernetes','Stakeholder Mgmt','TypeScript','Cloud Arch.','System Design','Sales Analytics','Java','Figma','Prompt Eng.','AWS'];
+  let nodes = [], W, H;
+
+  function resize(){
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+
+  class Node {
+    constructor(){
+      this.reset();
+    }
+    reset(){
+      this.x = Math.random()*W;
+      this.y = Math.random()*H;
+      this.vx = (Math.random()-.5)*.35;
+      this.vy = (Math.random()-.5)*.35;
+      this.r = 3.5 + Math.random()*2.5;
+      this.skill = skills[Math.floor(Math.random()*skills.length)];
+      this.gap = Math.random() < .32;
+      this.phase = Math.random()*Math.PI*2;
+      this.opacity = .55 + Math.random()*.35;
+    }
+    update(){
+      this.x += this.vx;
+      this.y += this.vy;
+      if(this.x < 0 || this.x > W) this.vx *= -1;
+      if(this.y < 0 || this.y > H) this.vy *= -1;
+      this.phase += .018;
+    }
+    draw(){
+      const pulse = Math.sin(this.phase)*.28 + .72;
+      const color = this.gap ? '#FF4B2B' : '#00D9C8';
+      ctx.save();
+      ctx.globalAlpha = this.opacity * .9;
+      const g = ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.r*5*pulse);
+      g.addColorStop(0, color+'55');
+      g.addColorStop(1, 'transparent');
+      ctx.beginPath();
+      ctx.arc(this.x,this.y,this.r*5*pulse,0,Math.PI*2);
+      ctx.fillStyle = g;
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+      ctx.fillStyle = color;
+      ctx.globalAlpha = this.opacity;
+      ctx.fill();
+      ctx.font = '10px DM Sans, sans-serif';
+      ctx.fillStyle = 'rgba(255,255,255,0.55)';
+      ctx.textAlign = 'center';
+      ctx.fillText(this.skill, this.x, this.y - this.r - 6);
+      ctx.restore();
+    }
+  }
+
+  function initNodes(){
+    nodes = [];
+    const count = Math.min(22, Math.floor(W/55));
+    for(let i=0;i<count;i++) nodes.push(new Node());
+  }
+
+  function drawLines(){
+    for(let i=0;i<nodes.length;i++){
+      for(let j=i+1;j<nodes.length;j++){
+        const dx=nodes[i].x-nodes[j].x, dy=nodes[i].y-nodes[j].y;
+        const dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<160){
+          const alpha = (1-dist/160)*.18;
+          const c = (nodes[i].gap||nodes[j].gap) ? '255,75,43' : '0,217,200';
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x,nodes[i].y);
+          ctx.lineTo(nodes[j].x,nodes[j].y);
+          ctx.strokeStyle = `rgba(${c},${alpha})`;
+          ctx.lineWidth = .8;
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function frame(){
+    ctx.clearRect(0,0,W,H);
+    drawLines();
+    nodes.forEach(n=>{n.update();n.draw();});
+    requestAnimationFrame(frame);
+  }
+
+  resize();
+  initNodes();
+  frame();
+  window.addEventListener('resize',()=>{resize();initNodes();});
+})();
+
+/* ---- NAV SCROLL ---- */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled', window.scrollY > 30);
+});
+
+/* ---- SCROLL REVEAL ---- */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add('visible');
+  });
+},{threshold:.12});
+document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>io.observe(el));
+
+/* ---- MODULE TABS ---- */
+function switchMod(i){
+  document.querySelectorAll('.mod-tab').forEach((t,j)=>t.classList.toggle('active',j===i));
+  document.querySelectorAll('.mod-panel').forEach((p,j)=>p.classList.toggle('active',j===i));
+  if(i===2){
+    setTimeout(()=>{
+      const bar=document.getElementById('pmbar');
+      if(bar) bar.style.width='45%';
+    },200);
+  }
+}
+
+/* ---- COUNTER ANIMATION ---- */
+const counterObs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting) return;
+    const el = e.target;
+    const target = parseInt(el.dataset.target);
+    const suffix = el.dataset.decimal || '';
+    let start = 0;
+    const duration = 2000;
+    const step = timestamp => {
+      if(!start) start = timestamp;
+      const progress = Math.min((timestamp-start)/duration,1);
+      const ease = 1-Math.pow(1-progress,3);
+      const current = Math.floor(ease*target);
+      el.textContent = current + suffix;
+      if(progress < 1) requestAnimationFrame(step);
+      else el.textContent = target + suffix;
+    };
+    requestAnimationFrame(step);
+    counterObs.unobserve(el);
+  });
+},{threshold:.5});
+document.querySelectorAll('.counter').forEach(el=>counterObs.observe(el));
+
+/* ---- HERO BAR ANIMATION ---- */
+window.addEventListener('load',()=>{
+  const bars = ['gb1','gb2','gb3','gb4'];
+  const widths = ['72%','38%','65%','80%'];
+  bars.forEach((id,i)=>{
+    const el = document.getElementById(id);
+    if(el){ el.style.width='0'; setTimeout(()=>{el.style.transition='width 1.2s cubic-bezier(.34,1.2,.64,1)'; el.style.width=widths[i];}, 600+i*150); }
+  });
+});
+</script>
+</body>
+</html>
